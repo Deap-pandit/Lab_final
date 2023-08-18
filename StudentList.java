@@ -41,13 +41,13 @@ public class StudentList {
 			return;
 		}
 		if(args[0].equals("a")) {
-			System.out.println("Loading data ...");
+			System.out.println("Loading data  aaa...");
 			reader();
 			for(String name : studentName) {
 				System.out.println(name);
 			}
 
-			System.out.println("Data Loaded.");
+			System.out.println("Data aaa Loaded.");
 		}
 		else if(args[0].equals("r")) 
 		{
