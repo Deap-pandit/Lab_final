@@ -2,6 +2,35 @@ import java.io.*;
 import java.text.*;
 import java.util.*;
 public class StudentList {
+	public static String students;
+	public static String studentName[];
+
+
+
+	public static void reader() {
+		try{
+			BufferedReader reader= new BufferedReader(
+					new InputStreamReader(
+							new FileInputStream("students.txt")));
+			students = reader.readLine();
+			 studentName = students.split(",");
+		}catch (Exception e){
+			System.out.println(e);
+		}
+
+	}
+	public static void write(String lastUpdate) {
+		try {
+			BufferedWriter bufferedWriter = new BufferedWriter(
+					new FileWriter("students.txt", true));
+			bufferedWriter.flush();
+			bufferedWriter.write(lastUpdate);
+			bufferedWriter.close();
+		}catch (Exception e){
+			System.out.println(e);
+		}
+
+	}
 	public static void main(String[] args) {
 
 //		Check arguments
@@ -12,48 +41,37 @@ public class StudentList {
 			return;
 		}
 		if(args[0].equals("a")) {
-			System.out.println("Loading data ...");			
-			try {
-			BufferedReader s = new BufferedReader(
-					new InputStreamReader(
-							new FileInputStream("students.txt"))); 
-			String students = s.readLine();
-			String studentName[] = students.split(",");
+			System.out.println("Loading data ...");
+			reader();
 			for(String name : studentName) {
 				System.out.println(name);
 			}
-			} catch (Exception e){} 
+
 			System.out.println("Data Loaded.");
 		}
 		else if(args[0].equals("r")) 
 		{
 			System.out.println("Loading data ...");			
-			try {
-			BufferedReader s = new BufferedReader(
-					new InputStreamReader(
-							new FileInputStream("students.txt"))); 
-			String students= s.readLine();
-			//System.out.println(students);
-			String studentName[] = students.split(",");
+			reader();
 			Random random = new Random();
 				//int y = random.nextInt();
 
-					System.out.println(studentName[random.nextInt(studentName.length)]);
-			} catch (Exception e){} 
+			System.out.println(studentName[random.nextInt(studentName.length)]);
+
 			System.out.println("Data Loaded.");			
 		}
 		else if(args[0].contains("+")){
-			System.out.println("Loading data ...");			
+			System.out.println("Loading data ...");
+			reader();
 			try {
-			BufferedWriter s = new BufferedWriter(
-					new FileWriter("students.txt", true));
+
 			String t= args[0].substring(1);
 	        Date d = new Date();
 	        String df = "dd/mm/yyyy-hh:mm:ss a";
 	        DateFormat dateFormat = new SimpleDateFormat(df);
 	        String fd= dateFormat.format(d);
-			s.write(", "+t+"\nList last updated on "+fd);
-			s.close();
+			write(", "+t+"\nList last updated on "+fd);
+
 			} catch (Exception e){}
 							
 			System.out.println("Data Loaded.");	
@@ -61,13 +79,7 @@ public class StudentList {
 		else if(args[0].contains("?")) 
 		{
 			System.out.println("Loading data ...");			
-			try {
-
-			BufferedReader s = new BufferedReader(
-					new InputStreamReader(
-							new FileInputStream("students.txt"))); 
-			String students = s.readLine();
-			String studentName[] = students.split(", ");
+			reader();
 			boolean done = false;
 			//String t = args[0].substring(1);
 			for(int idx = 0; idx<studentName.length && !done; idx++) {
@@ -76,29 +88,25 @@ public class StudentList {
 						done=true;
 				}
 			}
-			} catch (Exception e){} 
+
 			System.out.println("Data Loaded.");				
 		}
 		else if(args[0].contains("c")) 
 		{
 			System.out.println("Loading data ...");			
-			try {
-			BufferedReader s = new BufferedReader(
-					new InputStreamReader(
-							new FileInputStream("students.txt"))); 
-			String D = s.readLine();
-			char array[] = D.toCharArray();
+			reader();
+			char array[] = students.toCharArray();
 			boolean in_word = false;
 			int count=0;
-			for(char c:array) {
-				if(c ==' ') 
+			for(char space:array) {
+				if(space ==' ')
 				{
 					if (!in_word) {	count++; in_word =true;	}
 					else { in_word=false;}			
 				}
 			}
 			System.out.println(count +" word(s) found " + array.length);
-			} catch (Exception e){} 
+
 			System.out.println("Data Loaded.");				
 		}
 		else {
