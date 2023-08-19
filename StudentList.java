@@ -3,6 +3,7 @@ import java.text.*;
 import java.util.*;
 public class StudentList {
 	public static String students;
+	public static Constants constants=new Constants();
 	public static String studentName[];
 
 
@@ -13,7 +14,7 @@ public class StudentList {
 					new InputStreamReader(
 							new FileInputStream("students.txt")));
 			students = reader.readLine();
-			 studentName = students.split(",");
+			 studentName = students.split(constants.split);
 		}catch (Exception e){
 			System.out.println(e);
 		}
@@ -37,31 +38,31 @@ public class StudentList {
 
 		if(args.length !=1){
 
-			System.out.println("invalid argument");
+			System.out.println(constants.invalid);
 			return;
 		}
 		if(args[0].equals("a")) {
-			System.out.println("Loading data  aaa...");
+			System.out.println(constants.loadingData);
 			reader();
 			for(String name : studentName) {
 				System.out.println(name);
 			}
 
-			System.out.println("Data aaa Loaded.");
+			System.out.println(constants.loadedData);
 		}
-		else if(args[0].equals("r")) 
+		else if(args[0].equals(constants.randomName))
 		{
-			System.out.println("Loading data ...");			
+			System.out.println(constants.loadingData);
 			reader();
 			Random random = new Random();
 				//int y = random.nextInt();
 
 			System.out.println(studentName[random.nextInt(studentName.length)]);
 
-			System.out.println("Data Loaded.");			
+			System.out.println(constants.loadedData);
 		}
-		else if(args[0].contains("+")){
-			System.out.println("Loading data ...");
+		else if(args[0].contains(constants.addName)){
+			System.out.println(constants.loadingData);
 			reader();
 			try {
 
@@ -72,13 +73,15 @@ public class StudentList {
 	        String fd= dateFormat.format(d);
 			write(", "+t+"\nList last updated on "+fd);
 
-			} catch (Exception e){}
+			} catch (Exception e){
+				System.out.println(e);
+			}
 							
-			System.out.println("Data Loaded.");	
+			System.out.println(constants.loadedData);
 		}
-		else if(args[0].contains("?")) 
+		else if(args[0].contains(constants.query))
 		{
-			System.out.println("Loading data ...");			
+			System.out.println(constants.loadingData);
 			reader();
 			boolean done = false;
 			//String t = args[0].substring(1);
@@ -89,11 +92,11 @@ public class StudentList {
 				}
 			}
 
-			System.out.println("Data Loaded.");				
+			System.out.println(constants.loadedData);
 		}
-		else if(args[0].contains("c")) 
+		else if(args[0].contains(constants.countWord))
 		{
-			System.out.println("Loading data ...");			
+			System.out.println(constants.loadingData);
 			reader();
 			char array[] = students.toCharArray();
 			boolean in_word = false;
@@ -107,10 +110,10 @@ public class StudentList {
 			}
 			System.out.println(count +" word(s) found " + array.length);
 
-			System.out.println("Data Loaded.");				
+			System.out.println(constants.loadedData);
 		}
 		else {
-			System.out.println("invalid input");
+			System.out.println(constants.invalid);
 		}
 	}
 }
