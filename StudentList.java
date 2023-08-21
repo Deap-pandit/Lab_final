@@ -86,12 +86,13 @@ public class StudentList {
 		{
 			System.out.println(constants.loadingData);
 			reader();
-			boolean done = false;
+			//boolean done = false;
 			//String t = args[0].substring(1);
-			for(int idx = 0; idx<studentName.length && !done; idx++) {
+			for(int idx = 0; idx<studentName.length ; idx++) {
 				if(studentName[idx].equals(args[0].substring(1)) ){
-					System.out.println("We found it!");
-						done=true;
+					System.out.println(constants.found);
+						break;
+
 				}
 			}
 
